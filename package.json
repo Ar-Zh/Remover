@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "./node_modules/.bin/gulp"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Ar-Zh/project-template/issues"
   },
-  "homepage": "https://github.com/Ar-Zh/project-template#readme"
+  "homepage": "https://github.com/Ar-Zh/project-template#readme",
+  "devDependencies": {
+    "gulp": "gulpjs/gulp#4.0"
+  }
 }
