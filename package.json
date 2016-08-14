@@ -1,5 +1,5 @@
 {
-  "name": "project-template",
+  "name": "Remover",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Ar-Zh/project-template.git"
+    "url": "git://github.com/Ar-Zh/Remover.git"
   },
   "author": "Aristanov Zhanat",
   "license": "ISC",
@@ -42,5 +42,8 @@
     "vinyl-named": "^1.1.0",
     "webpack": "^1.13.1",
     "webpack-stream": "^3.2.0"
+  },
+  "dependencies": {
+    "lodash": "^4.14.2"
   }
 }

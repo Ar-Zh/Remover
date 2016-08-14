@@ -35,17 +35,14 @@ lazyRequireTask('styles', './tasks/styles', {
 gulp.task('webpack', function(callback) {
 
     let options = {
-        entry:   {
-            page: './frontend/js/main',
-            page2: './frontend/js/main2'
-        },
+        entry: './frontend/js/main',
+
         output:  {
             path:     __dirname + '/public/js',
             publicPath: '/js/',
-            filename: isDevelopment ? '[name].js' : '[name]-[chunkhash:10].js'
+            filename: 'build.js'
         },
-        watch:   isDevelopment,
-        devtool: isDevelopment ? 'cheap-module-inline-source-map' : null,
+        watch:   true,
         module:  {
             loaders: [{
                 test:    /\.js$/,
@@ -57,30 +54,6 @@ gulp.task('webpack', function(callback) {
             new webpack.NoErrorsPlugin() // otherwise error still gives a file
         ]
     };
-
-    if (!isDevelopment) {
-        options.plugins.push(
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    // don't show unreachable variables etc
-                    warnings:     false,
-                    unsafe:       true
-                }
-            }),
-            new AssetsPlugin({
-                filename: 'webpack.json',
-                path:     __dirname + '/manifest',
-                processOutput(assets) {
-                    for (let key in assets) {
-                        assets[key + '.js'] = assets[key].js.slice(options.output.publicPath.length);
-                        delete assets[key];
-                    }
-                    return JSON.stringify(assets);
-                }
-            })
-        );
-
-    }
 
     // https://webpack.github.io/docs/node.js-api.html
     webpack(options, function(err, stats) {
