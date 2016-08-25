@@ -27,9 +27,19 @@ lazyRequireTask('assets', './tasks/assets', {
     dst: 'public'
 });
 
+lazyRequireTask('styles:styl', './tasks/styles-styl', {
+   src: 'frontend/styles/styl/styl.styl',
+    dst: 'frontend/styles/css'
+});
+
+lazyRequireTask('styles:less', './tasks/styles-less', {
+    src: 'frontend/styles/less/less.less',
+    dst: 'frontend/styles/css'
+});
+
 lazyRequireTask('styles', './tasks/styles', {
-   src: 'frontend/styles/main.styl',
-    dst: 'public/styles'
+    src: 'frontend/styles/main.css',
+    dst: 'public/css'
 });
 
 gulp.task('webpack', function(callback) {
@@ -97,13 +107,15 @@ lazyRequireTask('clean', './tasks/clean', {
 });
 
 gulp.task('build', gulp.series('clean',
-    gulp.parallel('assets',
-        'styles', 'webpack', 'images'))
+    gulp.parallel('assets', 'styles:styl', 'styles:less', 'webpack', 'images'),
+    'styles')
 );
 
 gulp.task('watch', function() {
     gulp.watch('frontend/**/*.html', gulp.series('assets'));
-    gulp.watch('frontend/styles/**/*.styl', gulp.series('styles'));
+    gulp.watch('frontend/styles/**/*.styl', gulp.series('styles:styl'));
+    gulp.watch('frontend/styles/**/*.less', gulp.series('styles:less'));
+    gulp.watch('frontend/styles/**/*.css', gulp.series('styles'));
     gulp.watch('frontend/**/*.{svg,png,jpeg,jpg}', gulp.series('images')).on('unlink', function(filepath) {
         remember.forget('images', path.resolve(filepath));
         delete cached.caches.images[path.resolve(filepath)];

@@ -2,54 +2,16 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Editor</title>
 
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
-        <div class="screen" id="screen"></div>
-        <div class="menu" id="menu"></div>
+        <!--=include assets/templates.html -->
 
-
-
-
-
-
-
-
-
-
-
-
-        <script type="text/template" id="headband_t">
-        <div class="headband">
-            <h1>Редактор текста.</h1>
-            <span>инструкция:</span>
-            <ul>
-                <li>для продолжения работы кликните по заставке.</li>
-            </ul>
-        </div>
-    </script>
-
-    <script type="text/template" id="entry_field_t">
-        <textarea class="entry-field" id="entry_field" autofocus></textarea>
-    </script>
-
-    <script type="text/template" id="show_result_t">
-        <div class="show-result">
-            <p id="show-result_text"> <%-specifiedText%> </p>
-        </div>
-    </script>
-
-    <script type="text/template" id="button_t">
-        <button class='<%-cl%>' > <%-content%> </button>
-    </script>
-
-
-<script src="js/build.js"></script>
+    <script src="js/build.js"></script>
 </body>
 </html>

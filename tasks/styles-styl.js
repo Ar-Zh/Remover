@@ -10,7 +10,7 @@ module.exports = function (options) {
     return function () {
         return combiner(
             gulp.src(options.src)
-                .pipe($.include())
+                .pipe($.stylus())
                 .pipe(gulp.dest(options.dst))
         ).on('error', $.notify.onError());
     };

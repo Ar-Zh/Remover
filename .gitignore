@@ -5,3 +5,4 @@ $ cat .gitignore
 node_modules/
 .idea/
 public/
+bower_components/

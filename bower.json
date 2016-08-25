@@ -1,0 +1,18 @@
+{
+  "name": "Remover",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Aristanov Zhanat"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Ar-Zh/project-template",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
