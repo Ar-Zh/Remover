@@ -1,21 +1,6 @@
-<script type="text/template" id="headband_t">
-    <div class="jumbotron">
-        <div class="container">
-            <h1 class="display-4">Редактор текста</h1>
-            <p>инструмент для удаления случайных символов и групп символов из заданного текста</p>
-            <button class="btn btn-lg" id="headband_button" role="button">Начать</button>
-        </div>
-    </div>
-</script>
-
-<script type="text/template" id="entry_field_t">
-    <div class="container">
-        <textarea class="w-100 m-y-2" id="entry_field" rows="10" maxlength="10000" autofocus></textarea>
-    </div>
-</script>
-
 <script type="text/template" id="menu_t">
     <div class="container">
+        <textarea class="w-100 m-y-2" id="entry_field" rows="10" maxlength="10000" autofocus></textarea>
         <div class="row">
             <% items.forEach(function(item) { %>
             <div class="col-sm-6 col-xl-3 m-t-1">
@@ -37,7 +22,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-10 offset-xs-1 m-y-3">
-                <%-specifiedText%>
+                <%-specified_text%>
             </div>
             <div class="col-xs-1 offset-xs-8">
                 <button class="btn btn-lg" id="show_result_button" role="button">Начать снова</button>

@@ -1,64 +1,53 @@
 'use strict'
 
-import template from '../../node_modules/lodash/template'
+import Controls from './controls'
+import Options from './options'
+import Screen from './screen'
 
-export default class Editor {
+let editor = function () {
+    let one_symbol = Controls.settingButton(document.getElementById('one_symbol')),
+        two_symbol = Controls.settingButton(document.getElementById('two_symbol')),
+        commands = Controls.settingButton(document.getElementById('commands')),
+        exception = Controls.settingButton(document.getElementById('exceptions')),
+        start = Controls.startingButton(document.getElementById('start_editing')),
+        remove = Options.removeOption(one_symbol, two_symbol, commands, exception),
+        screen = Screen.editorScreen(document.getElementById('entry_field')),
+        controls = new Map(),
+        getOptionSettings = arr => arr.map(item => item.getPointer()),
+        f = function (obj, obj2) {
+            let option = getOptionSettings(obj.controls);
+            let func = obj.optionSelection(option);
+            obj2.setScreenValue(func);
+        };
 
-    constructor() {
-        this.roots = new Map;
-        this.templates = new Map;
-    }
+    one_symbol.decorate('actionOrReactionElementDecorator');
+    one_symbol.decorate('reActionRelatedElementDecorator', two_symbol, commands);
+    one_symbol.decorate('reDisabledRelatedElementDecorator', exception);
 
-    // Used to content substitution
-    subContent(root, ...templs) {
-        let result = '';
-        if (templs) templs.forEach( item => result += template(this.templates.get(item[0]))(item[1]));
-        this.roots.get(root).innerHTML = result;
-    }
+    two_symbol.decorate('actionOrReactionElementDecorator');
+    two_symbol.decorate('reActionRelatedElementDecorator', one_symbol, commands);
+    two_symbol.decorate('reDisabledRelatedElementDecorator', exception);
 
-    // Used to creating a handler
-    creatHandler(root, event, handler) {
-        this.roots.get(root).addEventListener(event, handler);
-    }
+    commands.decorate('actionOrReactionElementDecorator');
+    commands.decorate('reActionRelatedElementDecorator', one_symbol, two_symbol, exception);
+    commands.decorate('disabledOrRedisabledRelatedElementDecorator', exception);
 
-    // Used to add functional buttons
-    pumpButton(options) {
-        if (!document.getElementById(options.root).classList.contains(options.disabledClass)) {
-            document.getElementById(options.root).classList.toggle(options.falseClass);
-            document.getElementById(options.root).classList.toggle(options.trueClass);
+    exception.decorate('actionOrReactionElementDecorator');
 
-            if (options.relatedItems) {
-                options.relatedItems.forEach(
-                    item => {
-                        if (document.getElementById(item).classList.contains(options.trueClass)) {
-                            document.getElementById(item).classList.toggle(options.trueClass);
-                            document.getElementById(item).classList.toggle(options.falseClass);
-                        }
-                    }
-                )
-            }
+    start.decorate('optionStartDecorator', f, remove, screen);
 
-            if (options.disabledItems) {
-                options.disabledItems.forEach(
-                    item => {
-                        if (document.getElementById(item).classList.contains(options.trueClass)) {
-                            document.getElementById(item).classList.toggle(options.trueClass);
-                            document.getElementById(item).classList.toggle(options.falseClass);
-                        }
-                        document.getElementById(item).classList.toggle(options.disabledClass);
-                    }
-                )
-            }
+    controls
+        .set(one_symbol.id_name, one_symbol)
+        .set(two_symbol.id_name, two_symbol)
+        .set(commands.id_name, commands)
+        .set(exception.id_name, exception)
+        .set(start.id_name, start);
 
-            if (options.reDisabledItems) {
-                options.reDisabledItems.forEach(
-                    item => {
-                        if (document.getElementById(item).classList.contains(options.disabledClass)) {
-                            document.getElementById(item).classList.toggle(options.disabledClass);
-                        }
-                    }
-                )
-            }
+    window.addEventListener('click', event => {
+        if (controls.has(event.target.id)) {
+            controls.get(event.target.id).start();
         }
-    }
+    });
 }
+
+export default editor;
