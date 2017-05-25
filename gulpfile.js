@@ -23,29 +23,29 @@ function lazyRequireTask(taskName, path, options) {
 }
 
 lazyRequireTask('assets', './tasks/assets', {
-    src: 'frontend/index.html',
+    src: 'src/index.html',
     dst: 'public'
 });
 
 lazyRequireTask('styles:styl', './tasks/styles-styl', {
-   src: 'frontend/styles/styl/styl.styl',
-    dst: 'frontend/styles/css'
+   src: 'src/styles/styl/styl.styl',
+    dst: 'src/styles/css'
 });
 
 lazyRequireTask('styles:less', './tasks/styles-less', {
-    src: 'frontend/styles/less/less.less',
-    dst: 'frontend/styles/css'
+    src: 'src/styles/less/less.less',
+    dst: 'src/styles/css'
 });
 
 lazyRequireTask('styles', './tasks/styles', {
-    src: 'frontend/styles/main.css',
+    src: 'src/styles/main.css',
     dst: 'public/css'
 });
 
 gulp.task('webpack', function(callback) {
 
     let options = {
-        entry: './frontend/js/main',
+        entry: './src/js/main',
 
         output:  {
             path:     __dirname + '/public/js',
@@ -98,7 +98,7 @@ gulp.task('webpack', function(callback) {
 });
 
 lazyRequireTask('images', './tasks/images', {
-    src: 'frontend/**/*.{svg,png,jpeg,jpg}',
+    src: 'src/**/*.{svg,png,jpeg,jpg}',
     dst: 'public/img'
 });
 
@@ -112,11 +112,11 @@ gulp.task('build', gulp.series('clean',
 );
 
 gulp.task('watch', function() {
-    gulp.watch('frontend/**/*.html', gulp.series('assets'));
-    gulp.watch('frontend/styles/**/*.styl', gulp.series('styles:styl'));
-    gulp.watch('frontend/styles/**/*.less', gulp.series('styles:less'));
-    gulp.watch('frontend/styles/**/*.css', gulp.series('styles'));
-    gulp.watch('frontend/**/*.{svg,png,jpeg,jpg}', gulp.series('images')).on('unlink', function(filepath) {
+    gulp.watch('src/**/*.html', gulp.series('assets'));
+    gulp.watch('src/styles/**/*.styl', gulp.series('styles:styl'));
+    gulp.watch('src/styles/**/*.less', gulp.series('styles:less'));
+    gulp.watch('src/styles/**/*.css', gulp.series('styles'));
+    gulp.watch('src/**/*.{svg,png,jpeg,jpg}', gulp.series('images')).on('unlink', function(filepath) {
         remember.forget('images', path.resolve(filepath));
         delete cached.caches.images[path.resolve(filepath)];
     });;

@@ -97,10 +97,3 @@ export default class Controls {
         this.class_list.toggle(this.false_class);
     }
 }
-
-class Control {
-    activate() {}
-
-    deactivate(){}
-
-}

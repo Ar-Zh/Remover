@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Editor</title>
+
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div id="body">
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-4">Редактор текста</h1>
+            <button class="btn btn-lg" id="headband_button" role="button">Начать</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/template" id="menu_t">
+
+    <div class="container">
+
+        <textarea class="w-100 m-y-2" id="entry_field" rows="10" maxlength="10000" autofocus></textarea>
+
+        <div class="row">
+
+            <% items.forEach(function(item) { %>
+
+            <div class="col-sm-6 col-xl-3 m-t-1">
+
+                <button class="btn btn-block btn-secondary p-y-2" id= <%-item[0]%> >
+
+                    <%-item[1]%>
+
+                </button>
+
+            </div>
+
+            <% }); %>
+
+            <div class="col-md-2 offset-md-5 col-sm-4 offset-sm-4 col-xs-6 offset-xs-3 m-y-3">
+
+                <button class="btn btn-block btn-danger" id="start_editing">
+
+                    Удалить
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</script>
+
+
+
+<script type="text/template" id="show_result_t">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-xs-10 offset-xs-1 m-y-3">
+
+                <%-specified_text%>
+
+            </div>
+
+            <div class="col-xs-1 offset-xs-8">
+
+                <button class="btn btn-lg" id="show_result_button" role="button">Начать снова</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</script>
+
+    <script src="js/build.js"></script>
+</body>
+</html>

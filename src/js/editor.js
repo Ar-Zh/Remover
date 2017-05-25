@@ -1,16 +1,15 @@
 'use strict'
 
 import Controls from './controls'
-import Options from './options'
+import Option from './options/index'
+import Single from './options/remove_algoritms/single'
+import Double from './options/remove_algoritms/double'
 import Screen from './screen'
 
 let editor = function () {
     let one_symbol = Controls.settingButton(document.getElementById('one_symbol')),
         two_symbol = Controls.settingButton(document.getElementById('two_symbol')),
-        commands = Controls.settingButton(document.getElementById('commands')),
-        exception = Controls.settingButton(document.getElementById('exceptions')),
         start = Controls.startingButton(document.getElementById('start_editing')),
-        remove = Options.removeOption(one_symbol, two_symbol, commands, exception),
         screen = Screen.editorScreen(document.getElementById('entry_field')),
         controls = new Map(),
         getOptionSettings = arr => arr.map(item => item.getPointer()),
@@ -27,12 +26,6 @@ let editor = function () {
     two_symbol.decorate('actionOrReactionElementDecorator');
     two_symbol.decorate('reActionRelatedElementDecorator', one_symbol, commands);
     two_symbol.decorate('reDisabledRelatedElementDecorator', exception);
-
-    commands.decorate('actionOrReactionElementDecorator');
-    commands.decorate('reActionRelatedElementDecorator', one_symbol, two_symbol, exception);
-    commands.decorate('disabledOrRedisabledRelatedElementDecorator', exception);
-
-    exception.decorate('actionOrReactionElementDecorator');
 
     start.decorate('optionStartDecorator', f, remove, screen);
 
